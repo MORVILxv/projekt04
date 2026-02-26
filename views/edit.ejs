@@ -1,0 +1,25 @@
+<%- include("head.ejs") %>
+<body>
+    <main>
+        <h1>Edit info in database</h1>
+
+        <% data.forEach(function(tank){ %>
+            <form action="/all/tankmuseum/edit/new" method="POST">
+                    <div>
+                        <button class="button_edit" style="background-color: lightcoral;" name="action" value="delete">🗙</button>
+                        <input class="text_edit" type="text" name="nation" id="nation" required minlength="1" maxlength="500" value= <%= tank.nation %> />
+                        <input class="text_edit" type="text" name="name" id="name" required minlength="1" maxlength="500" value= <%= tank.name %> />
+                        <input class="text_edit" type="number" name="number" id="number" required minlength="1" maxlength="500" value= <%= tank.number %> />
+                        <input class="text_edit" type="hidden" name="id" id="id" value= <%= tank.id %> />
+                        <button class="button_edit" name="action" value="update">Edit info</button>
+                        <br><br>
+                    </div>
+            </form>
+        <% }) %>
+        <br><br><br>
+        <hr>
+        <h1>OR</h1>
+        <br>
+        <button onclick="location.href='/all/tankmuseum'"><b>Add tanks to the museum</b></button>
+    </main>
+</body>
