@@ -17,6 +17,7 @@ main {
     text-align: center;
     align-items: center;
     align-content: center;
+    position: relative;
 }
 
 button:not(.button_edit) {
@@ -64,4 +65,14 @@ ul {
 
 a {
     color: white;
+}
+
+.back {
+    background-color: #0066EE; 
+    padding: 2px 30px 2px 30px; 
+    width: fit-content; 
+    border-radius: 20px; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
 }
