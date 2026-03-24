@@ -15,6 +15,7 @@ const about = {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum suscipit magna, nec laoreet velit eleifend sed. Suspendisse et enim nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum auctor varius turpis vitae consectetur. Praesent volutpat gravida nibh sit amet sodales. Ut porttitor est quis efficitur rutrum. Vestibulum ac quam euismod, elementum libero vitae, rutrum nunc. Nullam pharetra leo consequat felis tempus, sed molestie nunc iaculis. Duis efficitur imperdiet pharetra. Vestibulum in lacinia orci. Nulla et mauris sit amet elit vehicula pharetra nec quis urna. Praesent quam elit, tempor iaculis vestibulum at, sagittis vitae sapien. In aliquet augue ac porttitor dictum"
 }
 
+
 const db = new DatabaseSync("./db.sqlite");
 
 db.exec(
@@ -27,6 +28,12 @@ db.exec(
     CREATE TABLE IF NOT EXISTS info (
     name TEXT NOT NULL,
     about TEXT NOT NULL
+    ) STRICT;
+
+    CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    username TEXT,
+    password TEXT
     ) STRICT;`
 );
 
@@ -38,6 +45,9 @@ const db_ops = {
     increase_number: db.prepare('UPDATE tanks SET number = number + ? WHERE id = ?'),
     insert_info: db.prepare('INSERT INTO info (name, about) VALUES (?, ?)'),
     select_info: db.prepare('SELECT * FROM info'),
+
+    insert_user: db.prepare('INSERT INTO users VALUES (null, ?, ?)'),
+    select_user: db.prepare('SELECT * FROM users WHERE username = ? AND password = ?')
 };
 
 function populate_tanks() {

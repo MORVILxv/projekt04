@@ -1,11 +1,14 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import db_ops from './db_operations.js';
+import { use } from "react";
 
 const port = 2077;
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 
 app.get("/", (req, res) => {
@@ -17,7 +20,8 @@ app.get("/all", (req, res) => {
     res.render("names", {
         name: "Subsites", 
         mname: mname.name,
-        aname: "About the museum"
+        aname: "About the museum",
+        accname: "Accounts"
     })
 });
 
@@ -92,6 +96,34 @@ app.post("/all/tankmuseum/edit/new", (req, res) => {
 });
 
 
+
+app.get("/all/account", (req, res) => {
+    res.render("account", {
+        name: "Accounts"
+    });
+});
+
+app.post("/all/account/signup", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    db_ops.insert_user.run(username, password);
+    res.redirect("/all/account");
+});
+app.post("/all/account/login", (req, res) => {
+    const username = req.body.login_username;
+    const password = req.body.login_password;
+    const user_db = db_ops.select_user.get(username, password);
+    console.log(user_db);
+    if (user_db != undefined && user_db != null) {
+        res.redirect("/all/account");
+        console.log("Logged in as:", username, password);
+    }
+    else {
+        res.redirect("/all/account");
+        console.log("Failed to log in");
+    }
+    
+});
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`);

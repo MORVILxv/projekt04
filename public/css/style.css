@@ -7,7 +7,7 @@ html {
 body {
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 98vh;
 }
 
 main {
@@ -68,11 +68,14 @@ a {
 }
 
 .back {
-    background-color: #0066EE; 
-    padding: 2px 30px 2px 30px; 
+    background-color: transparent; 
+    border: 3px solid #0066EE;
+    color: #0066EE;
+    padding: 2px 40px 2px 40px; 
     width: fit-content; 
     border-radius: 20px; 
     position: absolute; 
     top: 0; 
     left: 0;
+    cursor: pointer;
 }

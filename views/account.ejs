@@ -1,0 +1,37 @@
+<%- include("head.ejs") %>
+<body>
+    <main>
+        <div class = "back" onclick="location.href='/all/'">
+            <h2>Back</h2>
+        </div>
+        <div>
+            <h3>Create account</h3>
+            <form action="/all/account/signup" method="POST">
+                <div>
+                    <input class="text_edit" type="text" name="username" id="username" required minlength="1" maxlength="500" placeholder="Username"/>
+                    <input class="text_edit" type="password" name="password" id="password" required minlength="1" maxlength="500" placeholder="Password"/>
+                </div>
+                <div>
+                    <button>Create account</button>
+                </div>
+            </form>
+        </div>
+        <br><br><br>
+        <hr>
+        <h1>OR</h1>
+        <br>
+        <div>
+            <h3>Log in to account</h3>
+            <form action="/all/account/login" method="POST">
+                <div>
+                    <input class="text_edit" type="text" name="login_username" id="login_username" required minlength="1" maxlength="500" placeholder="Username"/>
+                    <input class="text_edit" type="password" name="login_password" id="login_password" required minlength="1" maxlength="500" placeholder="Password"/>
+                </div>
+                <div>
+                    <button>Log in to your account</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

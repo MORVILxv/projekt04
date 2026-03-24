@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/MORVILxv/projekt03#readme",
   "dependencies": {
+    "argon2": "^0.44.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "react": "^19.2.4"
   }
 }
