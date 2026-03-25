@@ -21,7 +21,7 @@
   "dependencies": {
     "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "morgan": "^1.10.1",
