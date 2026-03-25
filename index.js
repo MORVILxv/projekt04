@@ -115,6 +115,7 @@ app.post("/all/account/login", (req, res) => {
     const user_db = db_ops.select_user.get(username, password);
     console.log(user_db);
     if (user_db != undefined && user_db != null) {
+        res.cookie("Account", username, {maxAge: 3600000});
         res.redirect("/all/account");
         console.log("Logged in as:", username, password);
     }
