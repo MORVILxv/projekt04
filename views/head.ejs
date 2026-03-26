@@ -6,3 +6,8 @@
     <title><%= name %></title>
     <link rel="stylesheet" href="/css/style.css" />
 </head>
+<body>
+    <% if (user != false && user != undefined && user != null) { %>
+        <h2 style="position: absolute;">Hello, <%= user %></h2>
+    <% } %>
+    

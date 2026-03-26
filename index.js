@@ -3,9 +3,9 @@ import cookieParser from "cookie-parser";
 import db_ops from './db_operations.js';
 import { use } from "react";
 
-const port = 8000;
+const port = process.env.port;
 const app = express();
-const secret = "very secrety secret";
+const secret = process.env.secret;
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded());
@@ -100,17 +100,12 @@ app.post("/all/tankmuseum/edit/new", (req, res) => {
 
 
 app.get("/all/account", (req, res) => {
-    let acc = req.signedCookies["Account"];
-    if (acc != null) {
-        res.render("account", {
-            name: acc
-        })
-    } 
-    else {
-        res.render("account", {
-            name: "Accounts"
-        });
-    }
+    let username = req.signedCookies["Account"];
+    console.log(username);
+    res.render("account", {
+        name: "Account",
+        user: username
+    })
 });
 
 app.post("/all/account/signup", (req, res) => {
@@ -124,7 +119,7 @@ app.post("/all/account/login", (req, res) => {
     const password = req.body.login_password;
     const user_db = db_ops.select_user.get(username, password);
     console.log(user_db);
-    if (user_db != undefined || user_db != null) {
+    if (user_db != undefined && user_db != null) {
         res.cookie("Account", username, { maxAge: 3600000, signed: true, httpOnly: true });
         res.redirect("/all/account");
         console.log("Logged in as:", username, password);
