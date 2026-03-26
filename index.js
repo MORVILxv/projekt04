@@ -5,10 +5,12 @@ import { use } from "react";
 
 const port = 8000;
 const app = express();
+const secret = "very secrety secret";
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser(secret));
+
 
 
 app.get("/", (req, res) => {
@@ -98,9 +100,17 @@ app.post("/all/tankmuseum/edit/new", (req, res) => {
 
 
 app.get("/all/account", (req, res) => {
-    res.render("account", {
-        name: "Accounts"
-    });
+    let acc = req.signedCookies["Account"];
+    if (acc != null) {
+        res.render("account", {
+            name: acc
+        })
+    } 
+    else {
+        res.render("account", {
+            name: "Accounts"
+        });
+    }
 });
 
 app.post("/all/account/signup", (req, res) => {
@@ -114,8 +124,8 @@ app.post("/all/account/login", (req, res) => {
     const password = req.body.login_password;
     const user_db = db_ops.select_user.get(username, password);
     console.log(user_db);
-    if (user_db != undefined && user_db != null) {
-        res.cookie("Account", username, { maxAge: 3600000, secure: true });
+    if (user_db != undefined || user_db != null) {
+        res.cookie("Account", username, { maxAge: 3600000, signed: true, httpOnly: true });
         res.redirect("/all/account");
         console.log("Logged in as:", username, password);
     }
