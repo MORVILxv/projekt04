@@ -14,25 +14,30 @@ app.use(cookieParser(secret));
 
 
 app.get("/", (req, res) => {
-    res.render("none", {name: "Main"});
+    let username = req.signedCookies["Account"];
+    res.render("none", {name: "Main", user: username});
 })
 
 app.get("/all", (req, res) => {
+    let username = req.signedCookies["Account"];
     const mname = db_ops.select_info.get();
     res.render("names", {
         name: "Subsites", 
         mname: mname.name,
         aname: "About the museum",
-        accname: "Accounts"
+        accname: "Accounts",
+        user: username
     })
 });
 
 app.get("/all/about", (req, res) => {
+    let username = req.signedCookies["Account"];
     const data = db_ops.select_info.get();
     if (data != null) {
         res.render("about", {
             name: "About Us", 
             data: data,
+            user: username
         });
     } else {
         res.sendStatus(404);
@@ -40,6 +45,7 @@ app.get("/all/about", (req, res) => {
 });
 
 app.get("/all/tankmuseum", (req, res) => {
+    let username = req.signedCookies["Account"];
     const a = db_ops.select_info.get();
     const data = db_ops.select_tanks.all();
     if (a != undefined) {
@@ -47,6 +53,7 @@ app.get("/all/tankmuseum", (req, res) => {
             name: "List of tanks", 
             a: a.name,
             data: data,
+            user: username
         });
     } else {
         res.sendStatus(404);
@@ -71,6 +78,7 @@ app.post("/all/tankmuseum/new", (req, res) => {
 });
 
 app.get("/all/tankmuseum/edit", (req, res) => {
+    let username = req.signedCookies["Account"];
     const a = db_ops.select_info.get().name;
     const data = db_ops.select_tanks.all();
     if (data != undefined) {
@@ -78,6 +86,7 @@ app.get("/all/tankmuseum/edit", (req, res) => {
             name: "List of tanks", 
             a: a,
             data: data,
+            user: username
         });
     } 
     else {

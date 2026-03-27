@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-
-echo PORT=8000
-echo SECRET=$(cat /dev/random | tr -cd "[:graph:]" | head -c64)
+echo port=8000
+echo secret=$(cat /dev/random | tr -cd "[:graph:]" | head -c64)

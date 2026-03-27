@@ -1,5 +1,5 @@
 {
-  "name": "projekt03",
+  "name": "projekt04",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MORVILxv/projekt03.git"
+    "url": "git+https://github.com/MORVILxv/projekt04.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/MORVILxv/projekt03/issues"
+    "url": "https://github.com/MORVILxv/projekt04/issues"
   },
-  "homepage": "https://github.com/MORVILxv/projekt03#readme",
+  "homepage": "https://github.com/MORVILxv/projekt04#readme",
   "dependencies": {
     "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
