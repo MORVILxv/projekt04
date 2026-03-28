@@ -35,7 +35,7 @@ db.exec(
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     username TEXT,
     passwordhash TEXT,
-    admin TEXT
+    adminhash TEXT
     ) STRICT;`
 );
 

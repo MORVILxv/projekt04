@@ -20,6 +20,7 @@ app.use(express.urlencoded());
 app.use(cookieParser(secret));
 
 
+
 app.get("/", (req, res) => {
     let username = req.signedCookies["Account"];
     res.render("none", {name: "Main", user: username});
@@ -91,7 +92,7 @@ app.get("/all/tankmuseum/edit", async (req, res) => {
     if (data != undefined) {
         if (username != undefined) {
             const user_db = db_ops.select_user.get(username);
-            const admin_db = await argon2.verify(user_db.admin, "1", HASH_PARAMS) ? 1 : 0;
+            const admin_db = await argon2.verify(user_db.adminhash, "1", HASH_PARAMS) ? 1 : 0;
             res.render("edit", {
                 name: "List of tanks", 
                 data: data,
@@ -140,7 +141,6 @@ app.get("/all/tankmuseum/edit/noadmin", (req, res) => {
 
 app.get("/all/account", (req, res) => {
     let username = req.signedCookies["Account"];
-    console.log(username);
     res.render("account", {
         name: "Account",
         user: username
@@ -160,12 +160,10 @@ app.post("/all/account/login", async (req, res) => {
     const username = req.body.login_username;
     const password = req.body.login_password;
     const user_db = db_ops.select_user.get(username);
-    console.log(user_db);
     if (user_db != undefined && user_db != null) {
         if (await argon2.verify(user_db.passwordhash, password, HASH_PARAMS)) {
             res.cookie("Account", username, { maxAge: 3600000, signed: true, httpOnly: true });
             res.redirect("/all/account");
-            console.log("Logged in as:", username, password);
         }
     }
     else {
