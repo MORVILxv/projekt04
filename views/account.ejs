@@ -10,6 +10,8 @@
                 <div>
                     <input class="text_edit" type="text" name="username" id="username" required minlength="4" maxlength="20" placeholder="Username"/>
                     <input class="text_edit" type="password" name="password" id="password" required minlength="4" maxlength="16" placeholder="Password"/>
+                    <label for="admin" style="padding-left: 10px;">Admin account</label>
+                    <input class="text_edit" type="checkbox" name="admin" id="admin" value=1 />
                 </div>
                 <div>
                     <button>Create account</button>
@@ -32,6 +34,11 @@
                 </div>
             </form>
         </div>
+        <% if (user != undefined && user != null && user != false) { %>
+            <form action = "/all/account/logout" method="POST">
+            <button>Log out</button>
+            </form>
+        <% } %>
     </main>
 </body>
 </html>

@@ -33,7 +33,8 @@ db.exec(
     CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     username TEXT,
-    password TEXT
+    passwordhash TEXT,
+    admin INTEGER
     ) STRICT;`
 );
 
@@ -46,8 +47,8 @@ const db_ops = {
     insert_info: db.prepare('INSERT INTO info (name, about) VALUES (?, ?)'),
     select_info: db.prepare('SELECT * FROM info'),
 
-    insert_user: db.prepare('INSERT INTO users VALUES (null, ?, ?)'),
-    select_user: db.prepare('SELECT * FROM users WHERE username = ? AND password = ?')
+    insert_user: db.prepare('INSERT INTO users VALUES (null, ?, ?, ?)'),
+    select_user: db.prepare('SELECT * FROM users WHERE username = ?')
 };
 
 function populate_tanks() {
