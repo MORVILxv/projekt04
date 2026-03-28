@@ -76,7 +76,7 @@ populate_about();
 
 
 
-// >populate=1 node index.js żeby załadować dane testowe/przykładowe jeśli z maszyny wirtualnej
+// >populate=1 npm run index.js żeby załadować dane testowe/przykładowe jeśli z maszyny wirtualnej
 if (process.env.populate === "1") {
     populate_tanks();
 }

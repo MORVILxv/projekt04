@@ -2,13 +2,15 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import argon2 from "argon2";
 import db_ops from './db_operations.js';
-import { use } from "react";
-import e from "express";
 
-const port = process.env.port;
+const port = process.env.port || 8000;
 const app = express();
 const secret = process.env.secret;
 const pepper = process.env.pepper;
+if (secret == null || pepper == null) {
+    console.error("Env variables are missing, run 'npm run gen_env'");
+    process.exit(1);
+}
 const HASH_PARAMS = {
     secret: Buffer.from(pepper, "hex")
 }
@@ -16,7 +18,6 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded());
 app.use(cookieParser(secret));
-
 
 
 app.get("/", (req, res) => {
@@ -55,12 +56,12 @@ app.get("/all/tankmuseum", (req, res) => {
     const info = db_ops.select_info.get();
     const data = db_ops.select_tanks.all();
     if (info != undefined) {
-            res.render("tanks", {
-                name: "List of tanks", 
-                name2: info.name,
-                data: data,
-                user: username,
-            });
+        res.render("tanks", {
+            name: "List of tanks", 
+            name2: info.name,
+            data: data,
+            user: username,
+        });
     } else {
         res.sendStatus(404);
     }
@@ -176,6 +177,7 @@ app.post("/all/account/logout", (req, res) => {
     res.clearCookie("Account");
     res.redirect("/all/account");
 })
+
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`);
 });
