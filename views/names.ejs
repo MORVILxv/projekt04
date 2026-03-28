@@ -8,17 +8,11 @@
             <h1>
                 <p>Subsites</p>
             </h1>
-            <ul style="background-color: #0066EE; padding: 17px 40px 20px 40px; width: fit-content; border-radius: 20px;">
-                <li>
-                    <a href="/all/tankmuseum"><%= mname %></a> 
-                </li>
-                <li>
-                    <a href="/all/about"><%= aname %></a>
-                </li>
-                <li>
-                    <a href="/all/account"><%= accname %></a>
-                </li>
-            </ul>
+            <button style = "display: inline-block;" onclick="location.href='/all/tankmuseum'"><%= mname %></button>
+            
+            <button style = "display: inline-block;" onclick="location.href='/all/about'"><%= aname %></button>
+            
+            <button style = "display: inline-block;" onclick="location.href='/all/account'"><%= accname %></button>
         </div>
     </main>
 </body>

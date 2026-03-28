@@ -23,7 +23,8 @@ db.exec(
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     nation TEXT NOT NULL,
     name TEXT NOT NULL,
-    number INTEGER DEFAULT 1
+    number INTEGER DEFAULT 1,
+    addedby TEXT NOT NULL
     ) STRICT; 
     CREATE TABLE IF NOT EXISTS info (
     name TEXT NOT NULL,
@@ -34,16 +35,16 @@ db.exec(
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     username TEXT,
     passwordhash TEXT,
-    admin INTEGER
+    admin TEXT
     ) STRICT;`
 );
 
 const db_ops = {
-    insert_tank: db.prepare('INSERT INTO tanks (nation, name, number) VALUES (?, ?, ?)'),
+    insert_tank: db.prepare('INSERT INTO tanks VALUES (null, ?, ?, ?, ?)'),
     select_tanks: db.prepare("SELECT * FROM tanks"),
-    update_tank: db.prepare('UPDATE tanks SET nation = ?, name = ?, number = ? WHERE id = ?'),
+    update_tank: db.prepare('UPDATE tanks SET nation = ?, name = ?, number = ?, addedby = ? WHERE id = ?'),
     delete_tank: db.prepare("DELETE FROM tanks WHERE id = ?"),
-    increase_number: db.prepare('UPDATE tanks SET number = number + ? WHERE id = ?'),
+    increase_number: db.prepare('UPDATE tanks SET number = number + ?, addedby = ? WHERE id = ?'),
     insert_info: db.prepare('INSERT INTO info (name, about) VALUES (?, ?)'),
     select_info: db.prepare('SELECT * FROM info'),
 
@@ -58,14 +59,15 @@ function populate_tanks() {
         var nation = tank[0];
         var name = tank[1];
         var number = tank[2];
-        var c = db_ops.insert_tank.run(nation, name, number);
-        console.log("created:", c);
+        var addedby = "dev";
+        var insertion = db_ops.insert_tank.run(nation, name, number, addedby);
+        console.log("created:", insertion);
     });
 }
 
 function populate_about() {
-    var a = db_ops.select_info.get();
-    if (a == undefined) {
+    var info = db_ops.select_info.get();
+    if (info == undefined) {
         db_ops.insert_info.run(tankMuseum.name, about.text);
     }
 }

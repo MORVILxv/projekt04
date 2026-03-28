@@ -5,7 +5,7 @@
             <h2>Back</h2>
         </div>
         <h1>
-            <%= a %>
+            <%= name2 %>
         </h1>
         <ul id="tanks">
             <% data.forEach(function(tank){ %>
@@ -17,14 +17,26 @@
         <div>
             <h3>New tank</h3>
             <form action="/all/tankmuseum/new" method="POST">
-                <div>
-                    <input class="text_edit" type="text" name="nation" id="nation" required minlength="1" maxlength="500" placeholder="Nation"/>
-                    <input class="text_edit" type="text" name="name" id="name" required minlength="1" maxlength="500" placeholder="Name"/>
-                    <input class="text_edit" type="number" name="number" id="number" required minlength="1" maxlength="500" min="1" placeholder="Number" />
-                </div>
-                <div>
-                    <button>Add tank to museum</button>
-                </div>
+                <% if (user != undefined) { %>
+                    <div>
+                        <input class="text_edit" type="text" name="nation" id="nation" required minlength="1" maxlength="500" placeholder="Nation"/>
+                        <input class="text_edit" type="text" name="name" id="name" required minlength="1" maxlength="500" placeholder="Name"/>
+                        <input class="text_edit" type="number" name="number" id="number" required minlength="1" maxlength="500" min="1" placeholder="Number" />
+                    </div>
+                    <div>
+                        <button>Add tank to museum</button>
+                    </div>
+                <% } else { %> 
+                    <div>
+                        <input class="text_edit" type="text" name="nation" id="nation" required minlength="1" maxlength="500" placeholder="Nation" disabled/>
+                        <input class="text_edit" type="text" name="name" id="name" required minlength="1" maxlength="500" placeholder="Name" disabled/>
+                        <input class="text_edit" type="number" name="number" id="number" required minlength="1" maxlength="500" min="1" placeholder="Number" disabled/>
+                    </div>
+                    <div>
+                        <button style="background-color: gray;" disabled>Add tank to museum</button>
+                    </div>
+                    <p><i>Please log in to add tanks</i></p>
+                <% } %>
             </form>
         </div>
         <br><br><br>
