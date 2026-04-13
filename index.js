@@ -176,6 +176,7 @@ app.post("/all/account/logout", (req, res) => {
     res.redirect("/all/account");
 })
 
+console.log("nigger");
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`);
 });
